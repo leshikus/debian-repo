@@ -3,7 +3,7 @@
 The ligthtweight script creates and maintains signed Debian repository.
 Useful to keep a standard list of packages on a number of Debain installations.
 
-## Usage
+## Synopsis
 
 Run the script to create a repository
 ```sh
@@ -13,12 +13,9 @@ Run the script to create a repository
 ## Parameters
 
 The directory `/package/path` contains `.deb` files for repository.
-The directory `/repo/path` is where new signed repository is to be created.
+The directory `/repo/path` is where the new signed repository is to be created.
 
-## Notes
-
-The script does not delete packages from `/repo/path`, delete them
-manually if you no longer need them.
+## Usage
 
 You can get `.deb` packages from the existing installation. The following command
 places .deb files in `/var/cache/apt/archives`:
@@ -47,4 +44,7 @@ Now you can update the packages using
 apt-get update
 apt-get upgrade
 ```
+
+The script does not delete packages from `/repo/path`, delete them
+manually if you no longer need them.
 
