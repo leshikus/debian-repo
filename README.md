@@ -29,18 +29,15 @@ To download all packages in the system use
 dpkg -l |  grep "^ii"| awk ' {print $2} ' | xargs sudo apt-get -y --force-yes install --reinstall --download-only
 ```
 
-To update some debian installation using your repository in `/etc/apt/source.list` the following lines
-```sh
-deb file:///repo/path ./
-```
-If you have Nginx installed, the default `/repo/path` is `/var/www/html/repo`, and the repository can be added
-to `/etc/apt/source.list` via HTTP:
+The script assumes Nginx is used for the repository provisioning.  The default `/repo/path` is `/var/www/html/repo`,
+and the repository can be added to `/etc/apt/source.list` in the following form:
 ```sh
 deb http://your_host/repo ./
 ```
 
 Now you can update the packages using
 ```sh
+wget http://your_host/repo/GPG-KEY -O - | apt-key add -
 apt-get update
 apt-get upgrade
 ```
@@ -48,3 +45,9 @@ apt-get upgrade
 The script may be used to add new packages to `/repo/path` and update signatures. It does not delete packages, delete them
 manually if you no longer need them.
 
+## Installation
+
+The following script installs required packages (and requires superuser permission to run).
+```sh
+sh install.sh
+```

@@ -2,7 +2,7 @@
 
 set -e
 apt-get update
-apt-get install gnupg apt-utils
+apt-get install gnupg apt-utils nginx
 
 if test -d /var/www/html
 then
