@@ -31,14 +31,18 @@ To download all packages for particular installation use
 dpkg -l |  grep "^ii"| awk ' {print $2} ' | xargs sudo apt-get -y --force-yes install --reinstall --download-only
 ```
 
-To update some debian installation using your repository:
-  1. Add the following lines in your /etc/apt/source.list
-     deb file:///repo/path ./
+To update some debian installation using your repository in `/etc/apt/source.list` the following lines
+```sh
+deb file:///repo/path ./
+```
+If `/repo/path` is avaiable on HTTP server, use
+```sh
+deb http://repo/path ./
+```
 
-     If /repo/path is avaiable on HTTP server, use
-     deb http://repo/path ./
-
-  2. Update the packages
+Now you can update the packages using
+```sh
      apt-get update
      apt-get upgrade
+```
 
