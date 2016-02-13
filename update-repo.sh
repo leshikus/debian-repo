@@ -1,6 +1,8 @@
 #!/bin/sh
 
 set -e
+umask 022
+
 dir=`dirname "$0"`
 dir=`cd "$dir"; pwd -P`
 
@@ -61,8 +63,8 @@ copy_new_packages() (
   do
     to_deb="$to/$deb"
     test -f "$to_deb" || {
-      clean_deb_signatures "$deb"
-      cp "$deb" "$to_deb"
+      cp --no-preserve=all "$deb" "$to_deb"
+      clean_deb_signatures "$to_deb"
       dpkg-sig --sign builder "$to_deb"
       added=`expr $added + 1`
     }
