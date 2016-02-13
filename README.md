@@ -1,6 +1,7 @@
 # debian-repo
 
-The ligthtweight script creates and maintains signed debian repository.
+The ligthtweight script creates and maintains signed Debian repository.
+Useful to keep a standard list of packages on a number of Debain installations.
 
 ## Usage
 
@@ -26,7 +27,7 @@ places .deb files in `/var/cache/apt/archives`:
 apt-get install --download-only
 ```
 
-To download all packages for particular installation use
+To download all packages for in the system use
 ```sh
 dpkg -l |  grep "^ii"| awk ' {print $2} ' | xargs sudo apt-get -y --force-yes install --reinstall --download-only
 ```
