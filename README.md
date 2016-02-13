@@ -45,6 +45,6 @@ apt-get update
 apt-get upgrade
 ```
 
-The script does not delete packages from `/repo/path`, delete them
+The script may be used to add new packages to `/repo/path` and update signatures. It does not delete packages, delete them
 manually if you no longer need them.
 
