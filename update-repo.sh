@@ -76,8 +76,8 @@ copy_new_packages() (
   fi
 )
 
-gen_key
 parse_parameters
+gen_key
 copy_new_packages
 sign_repo
  
