@@ -42,7 +42,7 @@ deb http://repo/path ./
 
 Now you can update the packages using
 ```sh
-     apt-get update
-     apt-get upgrade
+apt-get update
+apt-get upgrade
 ```
 
