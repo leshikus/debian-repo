@@ -27,7 +27,7 @@ places .deb files in `/var/cache/apt/archives`:
 apt-get install --download-only
 ```
 
-To download all packages for in the system use
+To download all packages in the system use
 ```sh
 dpkg -l |  grep "^ii"| awk ' {print $2} ' | xargs sudo apt-get -y --force-yes install --reinstall --download-only
 ```
