@@ -7,7 +7,7 @@ dir=`dirname "$0"`
 dir=`cd "$dir"; pwd -P`
 
 from=${1:-../packages}
-to=${2:-../repo}
+to=${2:-/var/www/html/repo}
 
 parse_parameters() {
   for deb in "$from"/*.deb
@@ -21,6 +21,8 @@ parse_parameters() {
 
   from=`cd "$from"; pwd -P`
   to=`mkdir -p "$to"; cd "$to"; pwd -P`
+
+  date >"$to"/timestamp
 }
 
 clean_deb_signatures() {

@@ -36,9 +36,10 @@ To update some debian installation using your repository in `/etc/apt/source.lis
 ```sh
 deb file:///repo/path ./
 ```
-If `/repo/path` is avaiable on HTTP server, use
+If you have Nginx installed, the default `/repo/path` is `/var/www/html/repo`, and the repository can be added
+to `/etc/apt/source.list` via HTTP:
 ```sh
-deb http://repo/path ./
+deb http://your_host/repo ./
 ```
 
 Now you can update the packages using
