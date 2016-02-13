@@ -1,18 +1,28 @@
 #!/bin/sh
 
 set -e
-cd `dirname "$0"`
+dir=`dirname "$0"`
+dir=`cd "$dir"; pwd -P`
 
 from=${1:-../packages}
 to=${2:-../repo}
-key=
 
-from=`cd "$from"; pwd -P`
-to=`mkdir -p "$to"; cd "$to; pwd -P`
+parse_parameters() {
+  for deb in "$from"/*.deb
+  do
+    test -f "$deb" || {
+      echo No .deb packages in "$from"
+      exit 1
+    }
+    break
+  done
+
+  from=`cd "$from"; pwd -P`
+  to=`mkdir -p "$to"; cd "$to"; pwd -P`
+}
 
 clean_deb_signatures() {
-  signatures=`ar t "$1" | grep '^_gpg'`
-  ar d "$1" $signatures
+  ar d "$1" `ar t "$1" | grep '^_gpg'`
 }
 
 get_key() {
@@ -20,15 +30,14 @@ get_key() {
 }
 
 gen_key() {
-  cd "$to"
-
   key=`get_key`
   if test -z "$key"
   then
-    gpg --gen-key gen-key.conf
+    gpg --import "$dir"/rsa.gpg
     key=`get_key`
   fi
 
+  cd "$to"
   rm -f GPG-KEY
   gpg --output GPG-KEY --armor --export $key
 }
@@ -46,19 +55,29 @@ sign_repo() {
 }
 
 copy_new_packages() (
+  added=0
   cd "$from"
-  for deb in *.dev
+  for deb in *.deb
   do
     to_deb="$to/$deb"
     test -f "$to_deb" || {
       clean_deb_signatures "$deb"
       cp "$deb" "$to_deb"
       dpkg-sig --sign builder "$to_deb"
+      added=`expr $added + 1`
     }
   done
+  if expr $added
+  then
+    echo "Added $added packages"
+  else
+    echo No new .deb packages in "$from"
+    exit 1
+  fi
 )
 
-copy_new_packages
 gen_key
+parse_parameters
+copy_new_packages
 sign_repo
  
