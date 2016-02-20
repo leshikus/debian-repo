@@ -54,6 +54,8 @@ sign_repo() {
   bzip2 -c <Packages >Packages.bz2
 
   apt-ftparchive release . >Release
+
+  rm -f InRelease Release.gpg
   gpg --clearsign -o InRelease Release
   gpg -abs -o Release.gpg Release
 }
