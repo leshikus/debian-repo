@@ -6,7 +6,7 @@ umask 022
 dir=`dirname "$0"`
 dir=`cd "$dir"; pwd -P`
 
-from=${1:-../packages}
+from=${1:-"$dir"/../packages}
 to=${2:-/var/www/html/repo}
 
 parse_parameters() {
